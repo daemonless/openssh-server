@@ -1,0 +1,20 @@
+#!/bin/sh
+# sshd in the foreground, logging to stderr (the container's output).
+# Command-line -o settings win over /config/sshd/sshd_config.
+port=${LISTEN_PORT:-2222}
+if [ "${PASSWORD_ACCESS}" = true ]; then pass=yes; else pass=no; fi
+
+set --
+for key in /config/ssh_host_keys/ssh_host_*_key; do
+	set -- "$@" -h "${key}"
+done
+
+echo "[openssh] Listening on port ${port}, password access: ${pass}"
+# KbdInteractiveAuthentication follows PasswordAuthentication (with PAM it
+# would be a second password prompt that ignores it).
+exec /usr/local/sbin/sshd -D -e -f /config/sshd/sshd_config "$@" \
+	-o "Port=${port}" \
+	-o "AllowUsers=${USER_NAME:-bsd}" \
+	-o "PasswordAuthentication=${pass}" \
+	-o "KbdInteractiveAuthentication=${pass}" \
+	-o "Subsystem=sftp /usr/local/libexec/sftp-server -u ${UMASK:-022}"

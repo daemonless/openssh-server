@@ -1,0 +1,102 @@
+#!/bin/sh
+# OpenSSH server setup, after 10-usermod (PUID/PGID). Environment: USER_NAME,
+# USER_PASSWORD(_FILE), PASSWORD_ACCESS, SUDO_ACCESS, PUBLIC_KEY(_FILE|_DIR|_URL).
+# Port and auth settings are passed on sshd's command line
+# (/daemonless/libexec/sshd), so they win over /config/sshd/sshd_config.
+set -e
+
+if [ "$(id -u)" != 0 ]; then
+	echo "[openssh] Running as $(id -u): sshd needs root (privilege separation); start the container as root" >&2
+	exit 1
+fi
+
+USER_NAME=${USER_NAME:-bsd}
+echo "[openssh] User name is ${USER_NAME}"
+
+# Rename the login user (bsd's uid) to USER_NAME. bsd stays as a second name
+# after it: 10-usermod remaps bsd by name, and the first name for a uid is the
+# one id/ls show.
+uid=$(id -u bsd) gid=$(id -g bsd)
+primary=$(id -un "${uid}")
+if [ "${USER_NAME}" != "${primary}" ]; then
+	if id "${USER_NAME}" >/dev/null 2>&1; then
+		echo "[openssh] USER_NAME=${USER_NAME} is an existing system user; pick another name" >&2
+		exit 1
+	fi
+	pw usermod "${primary}" -l "${USER_NAME}" -c "SSH User"
+	if [ "${primary}" = bsd ]; then
+		pw useradd bsd -o -u "${uid}" -g "${gid}" -d /config -s /usr/sbin/nologin -c "Container User"
+	fi
+fi
+if [ "$(id -u "${USER_NAME}")" != "${uid}" ] || [ "$(id -g "${USER_NAME}")" != "${gid}" ]; then
+	pw usermod "${USER_NAME}" -o -u "${uid}" -g "${gid}"
+fi
+
+# Password: from the file, the variable, or random (unlocks the account).
+if [ -n "${USER_PASSWORD_FILE}" ] && [ -f "${USER_PASSWORD_FILE}" ]; then
+	USER_PASSWORD=$(cat "${USER_PASSWORD_FILE}")
+	echo "[openssh] User password is retrieved from file"
+fi
+pw_set=${USER_PASSWORD:+1}
+USER_PASSWORD=${USER_PASSWORD:-$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 16)}
+printf '%s\n' "${USER_PASSWORD}" | pw usermod "${USER_NAME}" -h 0
+
+sudoers=/usr/local/etc/sudoers.d/openssh-server
+if [ "${SUDO_ACCESS}" = true ]; then
+	if [ -n "${pw_set}" ]; then
+		echo "${USER_NAME} ALL=(ALL) ALL" > "${sudoers}"
+		echo "[openssh] sudo is enabled with password"
+	else
+		echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" > "${sudoers}"
+		echo "[openssh] sudo is enabled without password"
+	fi
+	chmod 440 "${sudoers}"
+else
+	rm -f "${sudoers}"
+	echo "[openssh] sudo is disabled"
+fi
+
+mkdir -p /config/.ssh /config/sshd /config/ssh_host_keys
+
+if [ ! -f /config/sshd/sshd_config ]; then
+	cp /usr/local/etc/ssh/sshd_config.daemonless /config/sshd/sshd_config
+fi
+
+for type in ed25519 ecdsa rsa; do
+	key=/config/ssh_host_keys/ssh_host_${type}_key
+	[ -f "${key}" ] || ssh-keygen -q -t "${type}" -N '' -f "${key}"
+done
+chmod 600 /config/ssh_host_keys/ssh_host_*_key
+chmod 644 /config/ssh_host_keys/ssh_host_*_key.pub
+echo "[openssh] SSH host public key(s):"
+cat /config/ssh_host_keys/ssh_host_*_key.pub
+
+# authorized_keys: add each configured key once.
+keys=/config/.ssh/authorized_keys
+touch "${keys}"
+add_key() {
+	printf '%s\n' "$1" | while IFS= read -r line; do
+		[ -n "${line}" ] || continue
+		grep -qxF "${line}" "${keys}" || { printf '%s\n' "${line}" >> "${keys}"; echo "[openssh] Public key from $2 added"; }
+	done
+}
+[ -z "${PUBLIC_KEY}" ] || add_key "${PUBLIC_KEY}" "PUBLIC_KEY"
+if [ -n "${PUBLIC_KEY_FILE}" ] && [ -f "${PUBLIC_KEY_FILE}" ]; then
+	add_key "$(cat "${PUBLIC_KEY_FILE}")" "${PUBLIC_KEY_FILE}"
+fi
+if [ -n "${PUBLIC_KEY_DIR}" ] && [ -d "${PUBLIC_KEY_DIR}" ]; then
+	for f in "${PUBLIC_KEY_DIR}"/*; do
+		[ -f "${f}" ] && add_key "$(cat "${f}")" "${f}"
+	done
+fi
+if [ -n "${PUBLIC_KEY_URL}" ]; then
+	add_key "$(fetch -qo - "${PUBLIC_KEY_URL}")" "${PUBLIC_KEY_URL}"
+fi
+
+# StrictModes: home and .ssh must not be writable by others.
+chown -R bsd:bsd /config
+chmod go-w /config
+chmod 700 /config/.ssh
+chmod 600 "${keys}"
+chown -R root:wheel /config/sshd /config/ssh_host_keys
+chmod 755 /config/sshd

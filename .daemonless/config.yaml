@@ -1,0 +1,42 @@
+# dbuild configuration file
+# Place in .daemonless/config.yaml or .dbuild.yaml (higher priority)
+#
+# Full reference: https://github.com/daemonless/dbuild
+
+icon: ':material-console-network:'
+
+build:
+  architectures:
+    - amd64
+    - aarch64
+  variants:
+    - tag: pkg
+      containerfile: Containerfile.pkg
+      aliases: ["latest"]
+      default: true
+      tag_desc: "**FreeBSD Quarterly**. openssh-portable from stable, tested packages."
+    - tag: pkg-latest
+      containerfile: Containerfile.pkg
+      args:
+        BASE_VERSION: "15.1-latest"
+      tag_desc: "**FreeBSD Latest**. openssh-portable, rolling package updates."
+    - tag: pkg-hpn
+      containerfile: Containerfile.pkg
+      args:
+        PKG_NAME: "openssh-portable-hpn"
+      tag_desc: "**HPN-SSH**, quarterly. High-performance networking patches: faster bulk transfers over high-latency links."
+    - tag: pkg-latest-hpn
+      containerfile: Containerfile.pkg
+      args:
+        BASE_VERSION: "15.1-latest"
+        PKG_NAME: "openssh-portable-hpn"
+      tag_desc: "**HPN-SSH**, latest. High-performance networking patches, rolling package updates."
+
+cit:
+  mode: port
+  port: 2222
+  ready: "Server listening on"
+  # sshd reads these as root; the login user must not be able to change them.
+  puid_ignore:
+    - /config/sshd
+    - /config/ssh_host_keys

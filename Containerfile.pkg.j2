@@ -1,0 +1,40 @@
+ARG BASE_VERSION=15.1
+FROM ghcr.io/daemonless/base-exec:${BASE_VERSION}
+
+ARG FREEBSD_ARCH=amd64
+# openssh-portable or openssh-portable-hpn (the hpn tags).
+ARG PKG_NAME="openssh-portable"
+# FreeBSD-pam: sudo authenticates through PAM (sshd itself does not use it).
+ARG PACKAGES="${PKG_NAME} sudo FreeBSD-pam"
+
+LABEL org.opencontainers.image.title="{{ title }}" \
+    org.opencontainers.image.description="{{ description }}" \
+    org.opencontainers.image.source="{{ repo_url }}" \
+    org.opencontainers.image.url="{{ web_url }}" \
+    org.opencontainers.image.licenses="{{ license }}" \
+    org.opencontainers.image.vendor="daemonless" \
+    org.opencontainers.image.authors="daemonless" \
+    io.daemonless.category="{{ category }}" \
+    io.daemonless.port="2222" \
+    io.daemonless.arch="${FREEBSD_ARCH}" \
+    io.daemonless.pkg-source="pkg" \
+    io.daemonless.packages="${PACKAGES}" \
+    io.daemonless.pkg-name="${PKG_NAME}"
+
+RUN pkg update && \
+    pkg install -y ${PACKAGES} && \
+    mkdir -p /app && \
+    pkg query '%v' ${PKG_NAME} > /app/version && \
+    pkg clean -ay && \
+    rm -rf /var/cache/pkg/* /var/db/pkg/repos/*
+
+COPY root/ /
+
+RUN chmod +x /healthz /daemonless/init.d/* /daemonless/libexec/sshd
+
+# sshd starts as root (privilege separation) and only lets USER_NAME in.
+ENV DAEMONLESS_USER=root
+CMD ["/daemonless/libexec/sshd"]
+
+EXPOSE 2222
+VOLUME /config

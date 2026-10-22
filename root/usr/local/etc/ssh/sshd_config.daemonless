@@ -1,0 +1,13 @@
+# Copied to /config/sshd/sshd_config on first start; edit it there.
+# Port, AllowUsers, PasswordAuthentication, KbdInteractiveAuthentication and
+# the sftp Subsystem come from the environment (LISTEN_PORT, USER_NAME,
+# PASSWORD_ACCESS, UMASK) and override anything set here.
+# Drop extra settings in /config/sshd/sshd_config.d/*.conf.
+Include /config/sshd/sshd_config.d/*.conf
+
+PermitRootLogin no
+AuthorizedKeysFile .ssh/authorized_keys
+# No PAM stack in the image; sshd checks passwords itself (it runs as root).
+UsePAM no
+X11Forwarding no
+PidFile none
