@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-22T07:49:05Z",
+  "generated": "2026-10-30T22:50:54Z",
   "image": "openssh-server",
   "tags": {
     "pkg-amd64": {
       "app_version": "10.6.p1,1",
       "arch": "amd64",
-      "generated": "2026-10-22T07:48:07Z",
+      "generated": "2026-10-30T22:50:08Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -196,7 +196,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
@@ -259,7 +259,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
@@ -365,7 +365,7 @@
     "pkg-hpn-amd64": {
       "app_version": "10.6.p1,1",
       "arch": "amd64",
-      "generated": "2026-10-22T07:48:08Z",
+      "generated": "2026-10-30T22:49:55Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -556,7 +556,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
@@ -619,7 +619,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
@@ -725,7 +725,7 @@
     "pkg-latest-amd64": {
       "app_version": "10.6.p1,1",
       "arch": "amd64",
-      "generated": "2026-10-22T07:48:05Z",
+      "generated": "2026-10-30T22:49:37Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -916,7 +916,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
@@ -979,7 +979,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
@@ -1085,7 +1085,7 @@
     "pkg-latest-hpn-amd64": {
       "app_version": "10.6.p1,1",
       "arch": "amd64",
-      "generated": "2026-10-22T07:48:31Z",
+      "generated": "2026-10-30T22:50:27Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -1276,7 +1276,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
@@ -1339,7 +1339,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
