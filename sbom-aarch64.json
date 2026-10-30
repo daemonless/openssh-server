@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-22T08:38:56Z",
+  "generated": "2026-10-30T23:33:22Z",
   "image": "openssh-server",
   "tags": {
     "pkg-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-22T08:36:49Z",
+      "generated": "2026-10-30T23:30:03Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -196,7 +196,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
@@ -365,7 +365,7 @@
     "pkg-hpn-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-22T08:36:57Z",
+      "generated": "2026-10-30T23:30:13Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -556,7 +556,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
@@ -725,7 +725,7 @@
     "pkg-latest-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-22T08:36:53Z",
+      "generated": "2026-10-30T23:30:08Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -916,7 +916,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
@@ -1085,7 +1085,7 @@
     "pkg-latest-hpn-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-22T08:37:01Z",
+      "generated": "2026-10-30T23:30:18Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -1276,7 +1276,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
