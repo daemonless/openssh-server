@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-30T23:33:22Z",
+  "generated": "2026-11-04T14:10:21Z",
   "image": "openssh-server",
   "tags": {
     "pkg-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-30T23:30:03Z",
+      "generated": "2026-11-04T14:07:28Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -259,7 +259,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
@@ -365,7 +365,7 @@
     "pkg-hpn-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-30T23:30:13Z",
+      "generated": "2026-11-04T14:07:39Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -619,7 +619,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
@@ -725,7 +725,7 @@
     "pkg-latest-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-30T23:30:08Z",
+      "generated": "2026-11-04T14:07:33Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -979,7 +979,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
@@ -1085,7 +1085,7 @@
     "pkg-latest-hpn-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-10-30T23:30:18Z",
+      "generated": "2026-11-04T14:07:44Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -1339,7 +1339,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.132"
           },
           {
             "licenses": [
