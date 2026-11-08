@@ -1,11 +1,11 @@
 {
-  "generated": "2026-11-04T14:10:21Z",
+  "generated": "2026-11-08T10:32:34Z",
   "image": "openssh-server",
   "tags": {
     "pkg-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-11-04T14:07:28Z",
+      "generated": "2026-11-08T10:30:16Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -365,7 +365,7 @@
     "pkg-hpn-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-11-04T14:07:39Z",
+      "generated": "2026-11-08T10:30:26Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -725,7 +725,7 @@
     "pkg-latest-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-11-04T14:07:33Z",
+      "generated": "2026-11-08T10:30:21Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -1085,7 +1085,7 @@
     "pkg-latest-hpn-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-11-04T14:07:44Z",
+      "generated": "2026-11-08T10:30:31Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
