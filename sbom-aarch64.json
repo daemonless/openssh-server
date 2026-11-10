@@ -1,11 +1,11 @@
 {
-  "generated": "2026-11-08T10:32:34Z",
+  "generated": "2026-11-10T08:42:39Z",
   "image": "openssh-server",
   "tags": {
     "pkg-aarch64": {
-      "app_version": "10.6.p1,1",
+      "app_version": "10.6.p2,1",
       "arch": "aarch64",
-      "generated": "2026-11-08T10:30:16Z",
+      "generated": "2026-11-10T08:39:40Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -323,7 +323,7 @@
               "OPENSSH"
             ],
             "name": "openssh-portable",
-            "version": "10.6.p1,1"
+            "version": "10.6.p2,1"
           },
           {
             "licenses": [
@@ -363,9 +363,9 @@
       }
     },
     "pkg-hpn-aarch64": {
-      "app_version": "10.6.p1,1",
+      "app_version": "10.6.p2,1",
       "arch": "aarch64",
-      "generated": "2026-11-08T10:30:26Z",
+      "generated": "2026-11-10T08:39:50Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -683,7 +683,7 @@
               "OPENSSH"
             ],
             "name": "openssh-portable-hpn",
-            "version": "10.6.p1,1"
+            "version": "10.6.p2,1"
           },
           {
             "licenses": [
@@ -725,7 +725,7 @@
     "pkg-latest-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-11-08T10:30:21Z",
+      "generated": "2026-11-10T08:39:45Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -1085,7 +1085,7 @@
     "pkg-latest-hpn-aarch64": {
       "app_version": "10.6.p1,1",
       "arch": "aarch64",
-      "generated": "2026-11-08T10:30:31Z",
+      "generated": "2026-11-10T08:39:55Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
