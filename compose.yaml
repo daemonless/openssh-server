@@ -21,12 +21,19 @@ x-daemonless:
       PGID: "Group ID of the login user"
       TZ: "Timezone for the container"
       USER_NAME: "Login user name (default: bsd)"
-      PUBLIC_KEY: "A public key added to authorized_keys"
+      PUBLIC_KEY:
+        desc: "SSH public key added to authorized_keys (e.g. ssh-ed25519 AAAA...)"
+        type: string
+        optional: true
+        level: primary
       PUBLIC_KEY_FILE: "A file of public keys to add (works with secrets)"
       PUBLIC_KEY_DIR: "A directory of public key files to add"
       PUBLIC_KEY_URL: "A URL of public keys to add (e.g. https://github.com/<user>.keys)"
       PASSWORD_ACCESS: "true allows password login (default: false, keys only)"
-      USER_PASSWORD: "The user's password (random if unset)"
+      USER_PASSWORD:
+        desc: "Login password when PASSWORD_ACCESS=true (random if unset)"
+        optional: true
+        level: options
       USER_PASSWORD_FILE: "A file holding the password; wins over USER_PASSWORD"
       SUDO_ACCESS: "true gives the user sudo (with password if one is set)"
       LISTEN_PORT: "Port sshd listens on (default: 2222)"
@@ -49,8 +56,9 @@ services:
       - PGID=1000
       - TZ=UTC
       - USER_NAME=bsd
-      - PUBLIC_KEY=ssh-ed25519 AAAA... you@example
+      - PUBLIC_KEY=
       - PASSWORD_ACCESS=false
+      - USER_PASSWORD=
       - SUDO_ACCESS=false
 
     volumes:
