@@ -43,13 +43,13 @@ services:
       - PGID=1000  # Group ID of the login user
       - TZ=UTC  # Timezone for the container
       - USER_NAME=bsd  # Login user name (default: bsd)
-      - PUBLIC_KEY=ssh-ed25519 AAAA... you@example  # A public key added to authorized_keys
+      - PUBLIC_KEY=<PUBLIC_KEY>  # SSH public key added to authorized_keys (e.g. ssh-ed25519 AAAA...)
       - PASSWORD_ACCESS=false  # true allows password login (default: false, keys only)
+      - USER_PASSWORD=<USER_PASSWORD>  # Login password when PASSWORD_ACCESS=true (random if unset)
       - SUDO_ACCESS=false  # true gives the user sudo (with password if one is set)
       # - PUBLIC_KEY_FILE=  # A file of public keys to add (works with secrets)
       # - PUBLIC_KEY_DIR=  # A directory of public key files to add
       # - PUBLIC_KEY_URL=  # A URL of public keys to add (e.g. https://github.com/<user>.keys)
-      # - USER_PASSWORD=  # The user's password (random if unset)
       # - USER_PASSWORD_FILE=  # A file holding the password; wins over USER_PASSWORD
       # - LISTEN_PORT=  # Port sshd listens on (default: 2222)
       # - UMASK=  # umask for SFTP uploads (default: 022)
@@ -74,8 +74,9 @@ PUID=1000
 PGID=1000
 TZ=UTC
 USER_NAME=bsd
-PUBLIC_KEY=ssh-ed25519 AAAA... you@example
+PUBLIC_KEY=<PUBLIC_KEY>
 PASSWORD_ACCESS=false
+USER_PASSWORD=<USER_PASSWORD>
 SUDO_ACCESS=false
 ```
 
@@ -102,6 +103,7 @@ services:
         - USER_NAME: !ENV '${USER_NAME}'
         - PUBLIC_KEY: !ENV '${PUBLIC_KEY}'
         - PASSWORD_ACCESS: !ENV '${PASSWORD_ACCESS}'
+        - USER_PASSWORD: !ENV '${USER_PASSWORD}'
         - SUDO_ACCESS: !ENV '${SUDO_ACCESS}'
     volumes:
       - openssh-server: /config
@@ -147,8 +149,9 @@ services:
       - PGID=1000
       - TZ=UTC
       - USER_NAME=bsd
-      - PUBLIC_KEY=ssh-ed25519 AAAA... you@example
+      - PUBLIC_KEY=<PUBLIC_KEY>
       - PASSWORD_ACCESS=false
+      - USER_PASSWORD=<USER_PASSWORD>
       - SUDO_ACCESS=false
     volumes:
       - "/containers/openssh-server:/config"
@@ -166,13 +169,13 @@ Save as `bastille-compose.yml`, then run `bastille up`.
 | `PGID` | `1000` | Group ID of the login user |
 | `TZ` | `UTC` | Timezone for the container |
 | `USER_NAME` | `bsd` | Login user name (default: bsd) |
-| `PUBLIC_KEY` | `ssh-ed25519 AAAA... you@example` | A public key added to authorized_keys |
+| `PUBLIC_KEY` | `<PUBLIC_KEY>` | SSH public key added to authorized_keys (e.g. ssh-ed25519 AAAA...) |
 | `PASSWORD_ACCESS` | `false` | true allows password login (default: false, keys only) |
+| `USER_PASSWORD` | `<USER_PASSWORD>` | Login password when PASSWORD_ACCESS=true (random if unset) |
 | `SUDO_ACCESS` | `false` | true gives the user sudo (with password if one is set) |
 | `PUBLIC_KEY_FILE` | `<PUBLIC_KEY_FILE>` | A file of public keys to add (works with secrets) |
 | `PUBLIC_KEY_DIR` | `<PUBLIC_KEY_DIR>` | A directory of public key files to add |
 | `PUBLIC_KEY_URL` | `<PUBLIC_KEY_URL>` | A URL of public keys to add (e.g. https://github.com/<user>.keys) |
-| `USER_PASSWORD` | `<USER_PASSWORD>` | The user's password (random if unset) |
 | `USER_PASSWORD_FILE` | `<USER_PASSWORD_FILE>` | A file holding the password; wins over USER_PASSWORD |
 | `LISTEN_PORT` | `` | Port sshd listens on (default: 2222) |
 | `UMASK` | `` | umask for SFTP uploads (default: 022) |
